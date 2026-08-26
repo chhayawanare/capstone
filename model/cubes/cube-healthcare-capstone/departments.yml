@@ -17,7 +17,7 @@ cubes:
         sql: department_name
         type: string
 
-      - name: departmentType
+      - name: department_type
         sql: department_type
         type: string
 
