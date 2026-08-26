@@ -40,3 +40,12 @@ cubes:
       - name: approval_rate
         sql: "100.0 * {approved_amount} / NULLIF({claim_amount}, 0)"
         type: number
+
+    pre_aggregations:
+      - name: claims_by_provider
+        measures:
+          - Claims.count
+          - Claims.claimAmount
+          - Claims.approvedAmount
+        dimensions:
+          - Insurance.insuranceProvider
