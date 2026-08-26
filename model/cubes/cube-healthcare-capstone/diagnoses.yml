@@ -1,0 +1,30 @@
+cubes:
+  - name: diagnoses
+    sql_table: public.diagnoses
+
+    joins:
+      - name: encounters
+        sql: "{CUBE}.encounter_id = {encounters.encounter_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: diagnosis_id
+        sql: diagnosis_id
+        type: string
+        primary_key: true
+
+      - name: diagnosis_code
+        sql: diagnosis_code
+        type: string
+
+      - name: diagnosis_name
+        sql: diagnosis_name
+        type: string
+
+      - name: diagnosisType
+        sql: diagnosis_type
+        type: string
+
+    measures:
+      - name: count
+        type: count

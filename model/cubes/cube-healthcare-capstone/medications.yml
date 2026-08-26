@@ -1,0 +1,25 @@
+cubes:
+  - name: medications
+    sql_table: public.medications
+
+    dimensions:
+      - name: medication_id
+        sql: medication_id
+        type: string
+        primary_key: true
+
+      - name: medication_name
+        sql: medication_name
+        type: string
+
+      - name: medication_category
+        sql: medication_category
+        type: string
+
+      - name: manufacturer
+        sql: manufacturer
+        type: string
+
+    measures:
+      - name: count
+        type: count

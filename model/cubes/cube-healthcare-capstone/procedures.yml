@@ -1,0 +1,38 @@
+cubes:
+  - name: procedures
+    sql_table: public.procedures
+
+    joins:
+      - name: encounters
+        sql: "{CUBE}.encounter_id = {encounters.encounter_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: procedure_id
+        sql: procedure_id
+        type: string
+        primary_key: true
+
+      - name: procedure_code
+        sql: procedure_code
+        type: string
+
+      - name: procedure_name
+        sql: procedure_name
+        type: string
+
+      - name: procedure_date
+        sql: procedure_date
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+      - name: procedure_cost
+        sql: procedure_cost
+        type: sum
+
+      - name: average_procedure_cost
+        sql: procedure_cost
+        type: avg

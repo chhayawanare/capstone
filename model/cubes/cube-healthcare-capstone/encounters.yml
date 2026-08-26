@@ -1,0 +1,65 @@
+cubes:
+  - name: encounters
+    sql_table: public.encounters
+
+    joins:
+      - name: patients
+        sql: "{CUBE}.patient_id = {patients.patient_id}"
+        relationship: many_to_one
+
+      - name: providers
+        sql: "{CUBE}.provider_id = {providers.provider_id}"
+        relationship: many_to_one
+
+      - name: departments
+        sql: "{CUBE}.department_id = {departments.department_id}"
+        relationship: many_to_one
+
+      - name: facilities
+        sql: "{CUBE}.facility_id = {facilities.facility_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: encounter_id
+        sql: encounter_id
+        type: string
+        primary_key: true
+
+      - name: encounter_type
+        sql: encounter_type
+        type: string
+
+      - name: status
+        sql: status
+        type: string
+
+      - name: admission_date
+        sql: admission_date
+        type: time
+
+      - name: discharge_date
+        sql: discharge_date
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+      - name: total_charge
+        sql: total_charge
+        type: sum
+
+      - name: average_charge
+        sql: total_charge
+        type: avg
+
+    pre_aggregations:
+      - name: monthly_department_encounters
+        measures:
+          - encounters.count
+          - encounters.total_charge
+        dimensions:
+          - facilities.facility_name
+          - departments.department_name
+        time_dimension: encounters.admission_date
+        granularity: month

@@ -1,0 +1,38 @@
+cubes:
+  - name: insurance
+    sql_table: public.insurance
+
+    joins:
+      - name: patients
+        sql: "{CUBE}.patient_id = {patients.patient_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: insurance_id
+        sql: insurance_id
+        type: string
+        primary_key: true
+
+      - name: insurance_provider
+        sql: insurance_provider
+        type: string
+
+      - name: planName
+        sql: plan_name
+        type: string
+
+      - name: policy_number
+        sql: policy_number
+        type: string
+
+      - name: coverage_percentage
+        sql: coverage_percentage
+        type: number
+
+    measures:
+      - name: count
+        type: count
+
+      - name: average_coverage_percentage
+        sql: coverage_percentage
+        type: avg
