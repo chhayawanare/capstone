@@ -13,7 +13,7 @@ cubes:
         type: string
         primary_key: true
 
-      - name: departmentName
+      - name: department_name
         sql: department_name
         type: string
 
