@@ -44,3 +44,11 @@ cubes:
       - name: average_payment_amount
         sql: payment_amount
         type: avg
+        
+    pre_aggregations:
+      - name: payments_by_method
+        measures:
+          - payments.count
+          - payments.payment_amount
+        dimensions:
+          - payments.payment_method
