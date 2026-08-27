@@ -1,0 +1,41 @@
+cubes:
+  - name: patients
+    sql_table: public.patients
+
+    dimensions:
+      - name: patient_id
+        sql: patient_id
+        type: string
+        primary_key: true
+
+      - name: first_name
+        sql: first_name
+        type: string
+
+      - name: last_name
+        sql: last_name
+        type: string
+
+      - name: gender
+        sql: gender
+        type: string
+
+      - name: date_of_birth
+        sql: date_of_birth
+        type: time
+
+      - name: city
+        sql: city
+        type: string
+
+      - name: state
+        sql: state
+        type: string
+
+      - name: registration_date
+        sql: registration_date
+        type: time
+
+    measures:
+      - name: count
+        type: count

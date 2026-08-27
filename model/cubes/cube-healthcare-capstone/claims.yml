@@ -1,0 +1,51 @@
+cubes:
+  - name: claims
+    sql_table: public.claims
+
+    joins:
+      - name: encounters
+        sql: "{CUBE}.encounter_id = {encounters.encounter_id}"
+        relationship: many_to_one
+
+      - name: insurance
+        sql: "{CUBE}.insurance_id = {insurance.insurance_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: claim_id
+        sql: claim_id
+        type: string
+        primary_key: true
+
+      - name: claim_status
+        sql: claim_status
+        type: string
+
+      - name: claim_date
+        sql: claim_date
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+      - name: claim_amount
+        sql: claim_amount
+        type: sum
+
+      - name: approved_amount
+        sql: approved_amount
+        type: sum
+
+      - name: approval_rate
+        sql: "100.0 * {approved_amount} / NULLIF({claim_amount}, 0)"
+        type: number
+
+    pre_aggregations:
+      - name: claims_by_provider
+        measures:
+          - Claims.count
+          - Claims.claimAmount
+          - Claims.approvedAmount
+        dimensions:
+          - Insurance.insuranceProvider

@@ -1,0 +1,29 @@
+cubes:
+  - name: facilities
+    sql_table: public.facilities
+
+    dimensions:
+      - name: facility_id
+        sql: facility_id
+        type: string
+        primary_key: true
+
+      - name: facility_name
+        sql: facility_name
+        type: string
+
+      - name: facility_type
+        sql: facility_type
+        type: string
+
+      - name: city
+        sql: city
+        type: string
+
+      - name: state
+        sql: state
+        type: string
+
+    measures:
+      - name: count
+        type: count

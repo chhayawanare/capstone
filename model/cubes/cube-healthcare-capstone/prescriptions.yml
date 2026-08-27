@@ -1,0 +1,46 @@
+cubes:
+  - name: prescriptions
+    sql_table: public.prescriptions
+
+    joins:
+      - name: patients
+        sql: "{CUBE}.patient_id = {patients.patient_id}"
+        relationship: many_to_one
+
+      - name: encounters
+        sql: "{CUBE}.encounter_id = {encounters.encounter_id}"
+        relationship: many_to_one
+
+      - name: medications
+        sql: "{CUBE}.medication_id = {medications.medication_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: prescription_id
+        sql: prescription_id
+        type: string
+        primary_key: true
+
+      - name: prescription_date
+        sql: prescription_date
+        type: time
+
+      - name: dosage
+        sql: dosage
+        type: string
+
+      - name: frequency
+        sql: frequency
+        type: string
+
+      - name: duration_days
+        sql: duration_days
+        type: number
+
+    measures:
+      - name: count
+        type: count
+
+      - name: average_duration
+        sql: duration_days
+        type: avg

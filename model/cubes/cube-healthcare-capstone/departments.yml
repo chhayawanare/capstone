@@ -1,0 +1,26 @@
+cubes:
+  - name: departments
+    sql_table: public.departments
+
+    joins:
+      - name: facilities
+        sql: "{CUBE}.facility_id = {facilities.facility_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: department_id
+        sql: department_id
+        type: string
+        primary_key: true
+
+      - name: department_name
+        sql: department_name
+        type: string
+
+      - name: department_type
+        sql: department_type
+        type: string
+
+    measures:
+      - name: count
+        type: count
